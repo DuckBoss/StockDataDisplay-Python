@@ -1,4 +1,4 @@
-# Stock-Data
+# StockDataDisplay-Python3
 A program that pulls stock data and displays it to the user.
 
 ## Prerequisites (Dependencies) - 
