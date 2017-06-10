@@ -3,18 +3,22 @@ import quandl
 import sys
 import matplotlib.pyplot as plt
 import numpy
+import PythonVersion
+
+
+pythonVData = 0
 
 class StockData:
 
 	def __init__(self):
 		print("\tThe Program Has Started...\n")
 
-	def getCurrentStockPrice(self, dataSet):
+	def getRecentStockPrice(self, dataSet):
 		try:
 			print("Processing request...")
-			myData = quandl.get(dataSet)
+			myData = quandl.get(dataSet, returns="numpy")
 
-			print(myData)
+			print(myData[-1])
 
 			print("Task Complete\n")
 		except:
@@ -58,6 +62,8 @@ class StockData:
 
 
 def main():
+	pythonVData = PythonVersion.getPythonVersion()
+
 	program = StockData()
 	numpy.set_printoptions(threshold=sys.maxsize)
 
@@ -69,22 +75,35 @@ def main():
 			"\tDebug Test - [U/u]\n"
 			"\tQuit - [Q/q]\n")
 
-		inp = input("Input - ").upper().strip()
+		if(pythonVData == 3):
+			inp = input("Input - ").upper().strip()
+		else:
+			inp = raw_input("Input - ").upper().strip()
 
 		if(inp == "Q"):
 			sys.exit(0)
 
 		if(inp == "SH"):
-			stockID = input("Enter ID [WIKI/...] - ")
-			stockStart = input("Enter Start Date [YYYY-MM-DD] - ")
-			stockEnd = input("Enter End Date [YYYY-MM-DD] - ")
-			stockValue = input("Enter Data Set [Low/High/Close/All/Etc] - ")
-			stockIter = input("Enter Iteration Set [Annual/Quarterly/Monthly/Weekly/Daily/None] - ").lower()
+			if(pythonVData == 3):
+				stockID = input("Enter ID [WIKI/...] - ")
+				stockStart = input("Enter Start Date [YYYY-MM-DD] - ")
+				stockEnd = input("Enter End Date [YYYY-MM-DD] - ")
+				stockValue = input("Enter Data Set [Low/High/Close/All/Etc] - ")
+				stockIter = input("Enter Iteration Set [Annual/Quarterly/Monthly/Weekly/Daily/None] - ").lower()
+			else:
+				stockID = raw_input("Enter ID [WIKI/...] - ")
+				stockStart = raw_input("Enter Start Date [YYYY-MM-DD] - ")
+				stockEnd = raw_input("Enter End Date [YYYY-MM-DD] - ")
+				stockValue = raw_input("Enter Data Set [Low/High/Close/All/Etc] - ")
+				stockIter = raw_input("Enter Iteration Set [Annual/Quarterly/Monthly/Weekly/Daily/None] - ").lower()
 			program.plotHistoricalStockPrice(stockID, stockStart, stockEnd, stockValue, stockIter)
 
 		if(inp == "SD"):
-			stockID = input("Enter ID [WIKI/...] - ")
-			program.getCurrentStockPrice(stockID)
+			if(pythonVData == 3):
+				stockID = input("Enter ID [WIKI/...] - ")
+			else:
+				stockID = raw_input("Enter ID [WIKI/...] - ")
+			program.getRecentStockPrice(stockID)
 
 		if(inp == "U"):
 			print("Debug...")
@@ -92,6 +111,5 @@ def main():
 
 
 if __name__ == "__main__":
-	#Enter your Quandl-API-Key
-	quandl.ApiConfig.api_key = "################"
+	quandl.ApiConfig.api_key = "nz915zHdb_vsfnctT6V-"
 	main()
