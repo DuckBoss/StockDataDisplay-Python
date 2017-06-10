@@ -1,9 +1,10 @@
-# StockDataDisplay-Python3
+# StockDataDisplay-Python2/3
 A program that pulls stock data and displays it to the user.
 
 ## Prerequisites (Dependencies) - 
-- Quandl (python3)
-- Matplotlib (python3)
+[I strongly recommend installing the dependencies using 'pip']
+- Quandl (python2/3)
+- Matplotlib (python2/3)
 - Numpy
 - Quandl Registered Account (Free/Premium)
 [ [Register For An Account Here!](https://www.quandl.com/?modal=register) ]
